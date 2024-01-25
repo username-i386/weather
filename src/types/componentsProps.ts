@@ -1,4 +1,4 @@
-import { IHourlyForecast, ISearchCityTransResponse, IWeatherForecastTransResponse } from "./apiResponses"
+import { Forecastday, IHourlyForecast, ISearchCityTransResponse, IWeatherForecastTransResponse } from "./apiResponses"
 
 export interface IColorChangeProps {
    colors: string[]
@@ -63,4 +63,13 @@ export interface IHourlyForecastListProps {
 
 export interface IDailyForecastProps {
    forecast: IWeatherForecastTransResponse
+}
+
+export interface IDailyForecastCardProps {
+   date: {
+      year: string
+      month: string
+      day: string
+   }
+   forecast: Forecastday
 }

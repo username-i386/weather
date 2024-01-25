@@ -8,27 +8,12 @@ import { PiWindFill } from "react-icons/pi";
 import { WiHumidity } from "react-icons/wi";
 import { BsCloudRainHeavyFill } from "react-icons/bs";
 import { FaRegSnowflake } from "react-icons/fa";
+import { DailyForecastCard } from "./DailyForecastCard";
 
 
 export const DailyForecast: FC<IDailyForecastProps> = ({ forecast }): ReactElement => {
 
    const hourlyForecastBg = useColorModeValue('gray.200', 'gray.700');
-
-   const colorSheme = (temperature: number) => {
-      if (temperature >= 0) {
-         return {
-            bg: useSelector((state: RootState) => state.colorSheme.colorShemeForWarmTemp),
-            text: useSelector((state: RootState) => state.colorSheme.colorTextForWarmTemp),
-         }
-      } else {
-         return {
-            bg: useSelector((state: RootState) => state.colorSheme.colorShemeForColdTemp),
-            text: useSelector((state: RootState) => state.colorSheme.colorTextForColdTemp),
-         }
-      }
-   } 
-   
-   const dailyForecast = forecast.days;
 
    function formatedLocalTime(localTime: string) {
       // гггг-мм-дд
@@ -46,63 +31,10 @@ export const DailyForecast: FC<IDailyForecastProps> = ({ forecast }): ReactEleme
          <Heading size={'lg'} mb={4}>Ежедневный прогноз:</Heading>
          <Stack direction={'row'} flexWrap={'wrap'} justify={['center', 'center', 'center', 'start']}>
             {
-               dailyForecast.map((element, index): ReactNode => {
+               forecast.days.map((element, index): ReactNode => {
                   const date = formatedLocalTime(element.date)
                   return (
-                     <Box key={index} 
-                        bg={colorSheme(element.day.avgtemp_c).bg}
-                        color={colorSheme(element.day.avgtemp_c).text} 
-                        rounded={'lg'}
-                        p={2}>
-                        <Text>{date.day + '.' + date.month + '.' + date.year}</Text>
-                        <Stack spacing={1}>
-                           <Stack direction={'row'} align={'center'} justify={'center'}>
-                              <Image src={element.day.condition.icon} />
-                              <Heading>{element.day.avgtemp_c + 'C°'}</Heading>
-                           </Stack>
-                           <Text textAlign={'center'} mb={2}>{element.day.condition.text}</Text>
-                           <Stack direction={'row'} align={'center'} justify={'space-around'}>
-                              <Tooltip hasArrow label='Минимальная температура' bg='gray.300' color='black'>
-                                 <Stack direction={'row'} align={'center'}>
-                                    <Icon as={FaTemperatureArrowDown} />
-                                    <Text>{element.day.mintemp_c + 'C°'}</Text>
-                                 </Stack>
-                              </Tooltip>
-                              <Tooltip hasArrow label='Максимальная температура' bg='gray.300' color='black'>
-                                 <Stack direction={'row'} align={'center'}>
-                                    <Icon as={FaTemperatureArrowUp} />
-                                    <Text>{element.day.maxtemp_c + 'C°'}</Text>
-                                 </Stack>
-                              </Tooltip>
-                           </Stack>
-                           <Stack direction={'row'} align={'center'} justify={'space-around'}>
-                              <Tooltip hasArrow label='Вероятность дождя' bg='gray.300' color='black'>
-                                 <Stack direction={'row'} align={'center'} justify={'center'}>
-                                    <Icon as={BsCloudRainHeavyFill} />
-                                    <Text>{element.day.daily_chance_of_rain + '%'}</Text>
-                                 </Stack>
-                              </Tooltip>
-                              <Tooltip hasArrow label='Вероятность снега' bg='gray.300' color='black'>
-                                 <Stack direction={'row'} align={'center'} justify={'center'}>
-                                    <Icon as={FaRegSnowflake} />
-                                    <Text>{element.day.daily_chance_of_snow + '%'}</Text>
-                                 </Stack>
-                              </Tooltip>
-                           </Stack>
-                           <Tooltip hasArrow label='Максимальная скорость ветра' bg='gray.300' color='black'>
-                              <Stack direction={'row'} align={'center'} justify={'center'}>
-                                 <Icon as={PiWindFill} />
-                                 <Text>{element.day.maxwind_kph + ' км/ч'}</Text>
-                              </Stack>
-                           </Tooltip>
-                           <Tooltip hasArrow label='Влажность' bg='gray.300' color='black'>
-                              <Stack direction={'row'} align={'center'} justify={'center'}>
-                                 <Icon as={WiHumidity} />
-                                 <Text>{element.day.avghumidity + '%'}</Text>
-                              </Stack>
-                           </Tooltip>
-                        </Stack>
-                     </Box>
+                     <DailyForecastCard key={index} forecast={element} date={date} />
                   )
                })
             }

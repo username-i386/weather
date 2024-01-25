@@ -2,32 +2,18 @@ import { Box, Collapse, Heading, Icon, Image, Stack, Text, useDisclosure } from 
 import { FC, ReactElement } from "react";
 import { IHourlyForecastItemProps } from "../types/componentsProps";
 import { PiWindFill } from "react-icons/pi";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { useColorSheme } from "../hooks/useColorSheme";
 
 export const HourlyForecastItem: FC<IHourlyForecastItemProps> = ({ currentHoyrlyForecast, isFirstItem }): ReactElement => {
 
    const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: isFirstItem });
 
-
-   const colorSheme = () => {
-      if (currentHoyrlyForecast.temp_c >= 0) {
-         return {
-            bg: useSelector((state: RootState) => state.colorSheme.colorShemeForWarmTemp),
-            text: useSelector((state: RootState) => state.colorSheme.colorTextForWarmTemp),
-         }
-      } else {
-         return {
-            bg: useSelector((state: RootState) => state.colorSheme.colorShemeForColdTemp),
-            text: useSelector((state: RootState) => state.colorSheme.colorTextForColdTemp),
-         }
-      }
-   } 
+   const { colorShemeBg, colorShemeText } = useColorSheme(currentHoyrlyForecast.temp_c);
 
    return (
       <>
-         <Box bg={colorSheme().bg}
-            color={colorSheme().text}
+         <Box bg={colorShemeBg}
+            color={colorShemeText}
             rounded={'lg'}
             p={2}
             cursor={'pointer'}

@@ -103,7 +103,7 @@ interface Forecast {
    forecastday: Forecastday[]
 }
 
-interface Forecastday {
+export interface Forecastday {
    date: string
    date_epoch: number
    day: Day
@@ -111,7 +111,7 @@ interface Forecastday {
    hour: IHourlyForecast[]
 }
 
-interface Day {
+export interface Day {
    maxtemp_c: number
    maxtemp_f: number
    mintemp_c: number

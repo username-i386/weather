@@ -1,9 +1,8 @@
 import { TableContainer, Table, TableCaption, Tbody, useMediaQuery } from "@chakra-ui/react";
 import { FC, ReactElement } from "react";
 import { ITodayForecastMeteodataListProps } from "../types/componentsProps";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { TodayForecastMeteodataItems } from "./TodayForecastMeteodataItems";
+import { useColorSheme } from "../hooks/useColorSheme";
 
 
 export const TodayForecastMeteodataList: FC<ITodayForecastMeteodataListProps> = ({ forecast }): ReactElement => {
@@ -25,18 +24,12 @@ export const TodayForecastMeteodataList: FC<ITodayForecastMeteodataListProps> = 
       }
    }
 
-   const colorText = () => {
-      if (forecast.todayForecast.temperature >= 0) {
-         return useSelector((state: RootState) => state.colorSheme.colorTextForWarmTemp);
-      } else {
-         return useSelector((state: RootState) => state.colorSheme.colorTextForColdTemp);
-      }
-   }
+   const { colorShemeText } = useColorSheme(forecast.todayForecast.temperature);
 
    return (
       <TableContainer >
          <Table variant='simple' colorScheme='teal' size={tableSize()}>
-            <TableCaption color={colorText()}>♥ Пожалуйста, берегите себя ♥</TableCaption>
+            <TableCaption color={colorShemeText}>♥ Пожалуйста, берегите себя ♥</TableCaption>
             <Tbody textTransform={isSmallerThan350px ? 'none' : 'uppercase'} 
                fontWeight={isSmallerThan350px ? '' : 600}>
                <TodayForecastMeteodataItems forecast={forecast} />

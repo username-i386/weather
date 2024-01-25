@@ -2,9 +2,8 @@ import { Box, Center, Collapse, Heading, Icon, Image, Show, Stack, Text, useDisc
 import { FC, ReactElement } from "react"
 import { ITodayForecastProps } from "../types/componentsProps"
 import { TodayForecastMeteodataList } from "./TodayForecastMeteodataList";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { IoMdArrowDropdownCircle, IoMdArrowDropupCircle } from "react-icons/io";
+import { useColorSheme } from "../hooks/useColorSheme";
 
 export const TodayForecast: FC<ITodayForecastProps> = ({
    localTime,
@@ -16,19 +15,9 @@ export const TodayForecast: FC<ITodayForecastProps> = ({
 
    const { isOpen, onToggle } = useDisclosure();
 
-   const colorSheme = () => {
-      if (forecast.todayForecast.temperature >= 0) {
-         return {
-            bg: useSelector((state: RootState) => state.colorSheme.colorShemeForWarmTemp),
-            text: useSelector((state: RootState) => state.colorSheme.colorTextForWarmTemp),
-         }
-      } else {
-         return {
-            bg: useSelector((state: RootState) => state.colorSheme.colorShemeForColdTemp),
-            text: useSelector((state: RootState) => state.colorSheme.colorTextForColdTemp),
-         }
-      }
-   }
+
+   const { colorShemeBg, colorShemeText } = useColorSheme(forecast.todayForecast.temperature);
+
 
    const date = (): string => {
       if (localTime) {
@@ -41,7 +30,7 @@ export const TodayForecast: FC<ITodayForecastProps> = ({
 
 
    return (
-      <Box rounded={'lg'} p={4} bg={colorSheme().bg} color={colorSheme().text}>
+      <Box rounded={'lg'} p={4} bg={colorShemeBg} color={colorShemeText}>
          <Heading size={'lg'}>
             {
                localTime ? 'Прогноз погоды на ' + date() : ''
