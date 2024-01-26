@@ -1,13 +1,6 @@
 import { FC, ReactElement, ReactNode } from "react";
 import { IDailyForecastProps } from "../types/componentsProps";
-import { Box, Heading, Icon, Image, Stack, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { FaTemperatureArrowUp, FaTemperatureArrowDown } from "react-icons/fa6";
-import { PiWindFill } from "react-icons/pi";
-import { WiHumidity } from "react-icons/wi";
-import { BsCloudRainHeavyFill } from "react-icons/bs";
-import { FaRegSnowflake } from "react-icons/fa";
+import { Box, Heading, Stack, useColorModeValue } from "@chakra-ui/react";
 import { DailyForecastCard } from "./DailyForecastCard";
 
 
@@ -24,7 +17,7 @@ export const DailyForecast: FC<IDailyForecastProps> = ({ forecast }): ReactEleme
       }
    }
 
-   
+
 
    return (
       <Box rounded={'lg'} p={4} bg={hourlyForecastBg}>

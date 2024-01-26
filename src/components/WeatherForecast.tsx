@@ -1,18 +1,47 @@
 import {Box, Heading, Stack} from "@chakra-ui/react";
 import { FC, ReactElement, useEffect, useState } from "react";
 import { useGetWeatherForecastQuery } from "../redux/api/weatherApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { TodayForecast } from "./TodayForecast";
 import { IFormatedLocalTime } from "../types/componentsProps";
 import {HourlyForecast} from "./HourlyForecast";
 import { DailyForecast } from "./DailyForecast";
 import { Loading } from "./Loading";
+import { setCityName } from "../redux/slices/citySlice";
+import { SearchBar } from "./SearchBar";
+import { InitSearchBar } from "./InitSearchBar";
 
 
 export const WeatherForecast: FC = (): ReactElement => {
 
+   const dispatch = useDispatch();
+
    const city = useSelector((state: RootState) => state.city.cityName);
+
+   function success(pos: GeolocationPosition) {
+      const crd = pos.coords;
+
+      const location = crd.latitude + ',' + crd.longitude;
+
+      setRequest({
+         skip: false,
+         params: {
+            location,
+            amountDays: 14,
+         },
+      })
+
+      dispatch(setCityName(location));
+      localStorage.setItem('city', location);
+   }
+
+
+   useEffect(() => {
+      navigator.geolocation.getCurrentPosition(success)
+   }, [])
+   
+
 
    const [request, setRequest] = useState({
       skip: true,
@@ -63,7 +92,7 @@ export const WeatherForecast: FC = (): ReactElement => {
 
    if (isLoading) return <Loading />
    if (isError) return <Box>Error</Box>
-   if (!data) return <></>
+   if (!data) return <InitSearchBar />
 
    return (
       <Box as="main">
