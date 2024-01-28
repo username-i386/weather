@@ -4,6 +4,7 @@ import { ColorChange } from "./ColorChange";
 import { ChanegColorMode } from "./ChangeColorMode";
 import { SearchBar } from "./SearchBar";
 import { ChangeAmountHourlyForecast } from "./ChangeAmountHourlyForecast";
+import { NotificationPermission } from "./NotificationPermisson";
 
 
 export const Settings: FC = (): ReactElement => {
@@ -26,6 +27,9 @@ export const Settings: FC = (): ReactElement => {
             <Stack p={2} bg={cardBg} rounded={'lg'}>
                <Text>Выбор города:</Text>
                <SearchBar />
+            </Stack>
+            <Stack p={2} bg={cardBg} rounded={'lg'}>
+               <NotificationPermission />
             </Stack>
             <Stack p={2} bg={cardBg} rounded={'lg'}>
                <Text>

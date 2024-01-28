@@ -11,6 +11,7 @@ import { Loading } from "./Loading";
 import { setCityName } from "../redux/slices/citySlice";
 import { SearchBar } from "./SearchBar";
 import { InitSearchBar } from "./InitSearchBar";
+import { PushNotification } from "./PushNotification";
 
 
 export const WeatherForecast: FC = (): ReactElement => {
@@ -108,7 +109,7 @@ export const WeatherForecast: FC = (): ReactElement => {
             <HourlyForecast localTime={localTime} forecast={data} />
             <DailyForecast forecast={data} />
          </Stack>
-
+         <PushNotification forecast={data} />
       </Box>
    )
 }

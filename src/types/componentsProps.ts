@@ -73,3 +73,7 @@ export interface IDailyForecastCardProps {
    }
    forecast: Forecastday
 }
+
+export interface IPushNotificationProps {
+   forecast: IWeatherForecastTransResponse
+}
