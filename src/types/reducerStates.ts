@@ -1,3 +1,5 @@
+import { IWeatherForecastTransResponse } from "./apiResponses"
+
 export interface IColorShemeState {
    colorShemeForWarmTemp: string
    colorShemeForColdTemp: string
@@ -11,4 +13,8 @@ export interface ICityState {
 
 export interface IAmountHoursSliceState {
    hours: number
+}
+
+export interface IWeatherForecsatState {
+   forecast: IWeatherForecastTransResponse | null
 }

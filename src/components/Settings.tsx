@@ -29,9 +29,6 @@ export const Settings: FC = (): ReactElement => {
                <SearchBar />
             </Stack>
             <Stack p={2} bg={cardBg} rounded={'lg'}>
-               <NotificationPermission />
-            </Stack>
-            <Stack p={2} bg={cardBg} rounded={'lg'}>
                <Text>
                   <Highlight query={"положительной"}
                      styles={{ fontWeight: 'bold', color: textColor, textDecoration: 'underline' }}>
@@ -76,6 +73,9 @@ export const Settings: FC = (): ReactElement => {
             <Stack p={2} bg={cardBg} rounded={'lg'}>
                <Text>Тема приложния?</Text>
                <ChanegColorMode sizeMode="big" />
+            </Stack>
+            <Stack p={2} bg={cardBg} rounded={'lg'}>
+               <NotificationPermission />
             </Stack>
          </Stack>
       </Box>

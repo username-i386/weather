@@ -9,9 +9,8 @@ import {HourlyForecast} from "./HourlyForecast";
 import { DailyForecast } from "./DailyForecast";
 import { Loading } from "./Loading";
 import { setCityName } from "../redux/slices/citySlice";
-import { SearchBar } from "./SearchBar";
 import { InitSearchBar } from "./InitSearchBar";
-import { PushNotification } from "./PushNotification";
+import { setWeatherForecsat } from "../redux/slices/weatherForecastSlice";
 
 
 export const WeatherForecast: FC = (): ReactElement => {
@@ -91,6 +90,12 @@ export const WeatherForecast: FC = (): ReactElement => {
       }
    }
 
+   useEffect(() => {
+      if (data) {
+         dispatch(setWeatherForecsat(data));
+      }
+   }, [data])
+
    if (isLoading) return <Loading />
    if (isError) return <Box>Error</Box>
    if (!data) return <InitSearchBar />
@@ -109,7 +114,6 @@ export const WeatherForecast: FC = (): ReactElement => {
             <HourlyForecast localTime={localTime} forecast={data} />
             <DailyForecast forecast={data} />
          </Stack>
-         <PushNotification forecast={data} />
       </Box>
    )
 }
