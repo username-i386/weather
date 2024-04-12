@@ -23,7 +23,7 @@ export const ChanegColorMode: FC<IChanegColorModeProps> = ({ sizeMode }): ReactE
          </Stack>
       )
    } else if (sizeMode === SMALL){
-      return <Icon as={colorModeIcon} boxSize={8} onClick={toggleColorMode} ml={2} />
+      return <Icon as={colorModeIcon} boxSize={8} onClick={toggleColorMode} ml={2} cursor={'pointer'} />
    } else return <></>
 
 
