@@ -4,7 +4,6 @@ import { ColorChange } from "./ColorChange";
 import { ChanegColorMode } from "./ChangeColorMode";
 import { SearchBar } from "./SearchBar";
 import { ChangeAmountHourlyForecast } from "./ChangeAmountHourlyForecast";
-import { NotificationPermission } from "./NotificationPermisson";
 
 
 export const Settings: FC = (): ReactElement => {
@@ -73,9 +72,6 @@ export const Settings: FC = (): ReactElement => {
             <Stack p={2} bg={cardBg} rounded={'lg'}>
                <Text>Тема приложния?</Text>
                <ChanegColorMode sizeMode="big" />
-            </Stack>
-            <Stack p={2} bg={cardBg} rounded={'lg'}>
-               <NotificationPermission />
             </Stack>
          </Stack>
       </Box>
